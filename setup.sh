@@ -13,7 +13,7 @@ k3d cluster create cluster1 \
 --servers 2 --agents 2 \
 -p "80:80@loadbalancer" -p "443:443@loadbalancer" \
 --k3s-arg '--flannel-backend=none@server:*' \
---volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml"
+--volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" \
 --volume "/root/scripts:/root/scripts"
 
 # Put the kubeconfig in place, so kubectl can work without params

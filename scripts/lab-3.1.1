@@ -1,0 +1,9 @@
+#!/bin/bash
+
+kubectl delete pod,rs,deploy  --all &> /dev/null
+kubectl delete svc bulbasaur-svc &> /dev/null
+
+kubectl -n fire delete pod,rs,deploy,svc  --all &> /dev/null
+kubectl delete ns fire &> /dev/null
+
+mv /etc/kubernetes/manifests/kube-scheduler.yaml /opt

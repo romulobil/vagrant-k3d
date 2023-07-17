@@ -1,0 +1,25 @@
+#!/bin/bash
+
+kubectl delete pod,rs,deploy  --all &> /dev/null
+
+cat << EOF | kubectl create -f - &> /dev/null
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-web
+  labels:
+    app: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd
+        image: htttpd:alpine
+EOF

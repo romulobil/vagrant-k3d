@@ -23,8 +23,24 @@ mkdir -p /home/vagrant/.kube && \
 k3d kubeconfig get cluster1 > /home/vagrant/.kube/config && \
 chown -R vagrant:vagrant /home/vagrant/.kube
 
-# Bash Completion for kubectl - very handy
-kubectl completion bash >/etc/bash_completion.d/kubectl
+curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+apt-get update
+apt-get install -y kubectl bash-completion
+
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+chmod a+r /etc/bash_completion.d/kubectl
+
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+source ~/.bashrc
+
+# configure kubectx
+git clone https://github.com/ahmetb/kubectx /opt/kubectx
+ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 
 # Install OLM
 kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/crds.yaml

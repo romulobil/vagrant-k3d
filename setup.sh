@@ -10,7 +10,7 @@ echo "192.168.1.10 $(hostname)" >> /etc/hosts
 
 curl -fsSL https://k3d.io/v5.0.1/usage/advanced/calico.yaml > calico.yaml
 k3d cluster create cluster1 \
---servers 2 --agents 2 \
+--servers 3 --agents 2 \
 -p "80:80@loadbalancer" -p "443:443@loadbalancer" \
 --k3s-arg '--flannel-backend=none@server:*' \
 --volume "$(pwd)/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml" \

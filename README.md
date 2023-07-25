@@ -6,6 +6,6 @@ Só que diferente das instruções do repositório original, vamos fazer o deplo
 
 - usando debian 11 em vez do ubuntu 20.04
 - sem o openconnect
-- cluster k8s com 1 master node e 2 worker nodes
-- com acesso ssh também por senha com usuário vagrant
-- deixar a VM preparada para usar também kubeadm
+- cluster k8s com 3 master nodes e 2 worker nodes
+- acesso ssh também por senha com usuário vagrant
+- kubeadm instalado na VM, caso queira transformar em um master node
